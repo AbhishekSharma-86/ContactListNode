@@ -1,0 +1,25 @@
+{
+  "name": "newskon",
+  "version": "1.0.0",
+  "description": "News Web app ",
+  "main": "express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbhishekSharma-86/NewsKon.git"
+  },
+  "author": "Abhishek Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbhishekSharma-86/NewsKon/issues"
+  },
+  "homepage": "https://github.com/AbhishekSharma-86/NewsKon#readme",
+  "dependencies": {
+    "ejs": "^3.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
