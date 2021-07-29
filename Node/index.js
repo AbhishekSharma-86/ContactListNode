@@ -1,33 +1,40 @@
-const http = require('http');
-const port = 8000;
-const fs = require('fs');
-function requestHandler(req, res){
-    res.writeHead(200, {'content-type':'text/html'});
-    let filePath;
-    switch(req.url){
-        case '/':
-            filePath = '../index.html';
-            break;
-        case '/covid.html':
-            filePath = '../covid.html';
-            break;
-        default:
-            filePath = '../404.html'
-    };
-    fs.readFile(filePath, function(err, data){
-        if(err){
-            console.log(err);
-            return res.end("<h1>Error</h1>")
-        }
-        return res.end(data);
-    });
-}
-const server = http.createServer(requestHandler);
-server.listen(port, err=>{
-    if(err){
-        console.log(err);
-        return;
+const express = require('express');
+const port = 3500;
+const path = require('path');
+const app = express();
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
+app.use(express.urlencoded());
+var ContactList = [
+    {
+        name: "Abhishek Sharma",
+        phone: "11919298",
+    },
+    {
+        name: "Tony stark",
+        phone: "56562737"
     }
-    console.log("server is up and running on port:",port);
-    return;
+];
+// app.use(express.static(path.join(__dirname, '../views')));
+app.get('/', (req, res)=>{
+    return res.render('home',{
+        title: "Home Page",
+        contact_list: ContactList
+    });
+    // res.sendFile(path.join(__dirname,'../index.html'));
+});
+app.post('/create-contact', (req, res)=>{
+    // return res.render('/practice');
+    console.log(req.body);
+    ContactList.push({
+        name: req.body.name,
+        phone: req.body.phone
+    });
+    return res.redirect('/');
+})
+app.listen(port, (err)=>{
+    if(err){
+        console.log("Error ",err);
+    }
+    console.log('server is up and running');
 })
